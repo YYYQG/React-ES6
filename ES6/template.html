@@ -5,20 +5,39 @@
     <title>Template</title>
 </head>
 <body>
-
+    <div id="te"></div>
 </body>
 <script type="text/javascript">
     let template = `
     <ul>
         <% for(let i =0;i < data.supplies.length;i++) { %>
-            <li><%= data.supples[i] %></li>
+            <li><%= data.supplies[i] %></li>
         <% } %>
     </ul>
     `;
+    let complie = (template)=>{
+        const evalExpr = /<%=(.+?)%>/g;
+        const expr = /<%([\s\S]+?)%>/g
+        template = template.replace(evalExpr, '`); \n echo($1); \n echo(`')
+            .replace(expr, '`); \n $1 \n echo(`')
+        template = 'echo(`' + template + '`);'
+        let script = `
+        (function (data){
+        let output = "";
 
-    let evalExpr = /<%=(.+>?)%>/g;
-    let expr = /<%([\s\S]+?)%>/g
+        function echo(html){
+            output += html;
+        }
 
+        ${ template }
 
+        return output;
+        })
+        `;
+        console.log(script)
+        return script;
+    }
+    let parse = eval.call(null,complie(template));
+    document.querySelector("#te").innerHTML = parse({ supplies: [ "broom", "mop", "cleaner" ] })
 </script>
 </html>

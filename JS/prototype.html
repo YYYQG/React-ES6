@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		
+		function fun1(){
+			this.name = "YYY"
+		}
+		fun1.prototype.getName = function(){
+			return this.name;
+		}
+		let p = new fun1(0);
+		console.log(p)
+		console.log(p.__proto__);
+		console.log(fun1.prototype)
+		let arr = [0,1,2,3];
+		console.log(arr);
+		let ob = {
+			name:"YYY",
+			age:20,
+			getName:()=>{
+				return name;
+			}
+		};
+		console.log(ob)
+		console.log(Object.prototype)
+		console.log(Function.__proto__)
+	</script>
+</html>

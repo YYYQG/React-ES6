@@ -7,28 +7,41 @@
 	<body>
 	</body>
 	<script>
-		
-		function fun1(){
-			this.name = "YYY"
+		var o = new Object();
+		console.log(o.__proto__==Object.prototype)
+		console.log(o.prototype); //undefined
+		var fn = function() {}
+		console.log(fn.prototype); //Object {constructor: function}
+		var f1 = new fn();
+		console.log(f1.__proto__);
+		console.log(f1.__proto__ == fn.prototype); //true
+		console.log(f1)
+		console.log("-------------")
+
+
+		var Person = function() {};
+		Person.prototype.Name = function() {
+			console.log("person name");
 		}
-		fun1.prototype.getName = function(){
-			return this.name;
-		}
-		let p = new fun1(0);
-		console.log(p)
-		console.log(p.__proto__);
-		console.log(fun1.prototype)
-		let arr = [0,1,2,3];
-		console.log(arr);
-		let ob = {
-			name:"YYY",
-			age:20,
-			getName:()=>{
-				return name;
+		Person.prototype.Sex = "male or female";
+
+		var Younger = function() {};
+		Younger.prototype = new Person();
+
+		var Ann = new Younger();
+		Ann.Name(); //person name
+		//console.log(Ann.Age()); //14-28
+		//console.log(Ann.Sex); //female
+		console.log(new Person)
+		console.log(Ann)
+		console.log("----------------")
+		var July = {
+			name: "张三",
+			age: 28,
+			getInfo: function() {
+				console.log(this.name + " is " + this.age + " years old");
 			}
-		};
-		console.log(ob)
-		console.log(Object.prototype)
-		console.log(Function.__proto__)
+		}
+		console.log(July)
 	</script>
 </html>

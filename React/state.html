@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="#state"></div>
+	</body>
+	<script type="text/babel">
+		
+		/* class Like extends React */
+		class Like extends React.Component{
+			
+			constructor(props) {
+			    super(props)
+				this.state = {
+					isLike:false
+				}
+				this.handerClick = this.handerClick.bind(this)
+			}
+			
+			handerClick(){
+				
+				const isLike = !this.state.isLike;
+				this.setState({isLike})
+				
+			}
+			
+			render(){
+				return <h2 onClick = {this.handerClick}>{this.state.isLike?'你是猪':'我是猪'}</h2>
+			}
+			
+		}
+		
+		ReactDOM.render(<Like />,document.getElementById('#state'))
+		
+		
+	</script>
+</html>

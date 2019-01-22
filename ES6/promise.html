@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    function multiply(input) {
+        return new Promise((resolve,reject)=>{
+            console.log("multiply")
+            setTimeout(resolve,500,input*input)
+        })
+    }
+
+    function add(input) {
+        return new Promise((resolve, reject)=>{
+            console.log("add")
+            setTimeout(resolve,500,input+input)
+        })
+    }
+
+    let p = new Promise((resolve, reject)=>{
+        resolve(123)
+    })
+
+    p.then(multiply)
+    .then(add)
+    .then((result)=>{
+        console.log(result)
+    })
+    
+    let x = {};
+    x={
+        name:'YYY'
+    }
+    console.log(x.name)
+</script>
+</body>
+</html>

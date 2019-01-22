@@ -14,6 +14,8 @@
 			this.get=function(){
 				console.log(this)
 			}
+
+
 			
 			}
 		new test().get();
@@ -27,6 +29,25 @@
 		console.log("max_value",Number.MIN_VALUE)
 		console.log("max_safe_integer",Number.MAX_SAFE_INTEGER)
 		console.log("max_value",Number.MAX_VALUE)
-		
+
+		let re = /^(\d+?)(0*)$/
+		console.log("Rex",re.exec('1023000'))
+        var test = Object.create({x:123,y:345});
+        console.log(test);//{}
+        console.log(test.x);//123
+        console.log(test.__proto__.x);//123
+        console.log(test.__proto__.x === test.x);//true
+
+        var test1 = new Object({x:123,y:345});
+        console.log(test1);//{x:123,y:345}
+        console.log(test1.x);//123
+        console.log(test1.__proto__.x);//undefined
+        console.log(test1.__proto__.x === test1.x);//false
+
+		var f = function () {
+            this.name = 'YYY'
+
+        }
+        console.log(new f())
 	</script>
 </html>

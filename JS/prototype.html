@@ -7,6 +7,22 @@
 	<body>
 	</body>
 	<script>
+		/*
+
+			function Student(name) {
+				this.name = name;
+				this.hello = function () {
+					alert('Hello, ' + this.name + '!');
+				}
+			}
+			var xiaoming = new Student('小明');
+			xiaoming.name; // '小明'
+			xiaoming.hello(); // Hello, 小明!
+
+			Student.prototype指向的对象就是xiaoming的原型对象，这个原型对象自己还有个属性constructor，指向Student函数本身。
+			另外函数Student恰有一个属性prototype指向xiaoming的原型对象，但这些对象没有prototype这个属性，不过可以用__proto__这个非标准用法来查看。
+
+		 */
 		var o = new Object();
 		console.log(o.__proto__==Object.prototype)
 		console.log(o.prototype); //undefined
@@ -18,7 +34,6 @@
 		console.log(f1)
 		console.log("-------------")
 
-
 		var Person = function() {};
 		Person.prototype.Name = function() {
 			console.log("person name");
@@ -27,13 +42,14 @@
 
 		var Younger = function() {};
 		Younger.prototype = new Person();
-
+		var p = new Person()
 		var Ann = new Younger();
 		Ann.Name(); //person name
 		//console.log(Ann.Age()); //14-28
 		//console.log(Ann.Sex); //female
 		console.log(new Person)
 		console.log(Ann)
+		console.log(Ann.constructor.prototype==p.constructor.prototype)
 		console.log("----------------")
 		var July = {
 			name: "张三",
@@ -43,5 +59,6 @@
 			}
 		}
 		console.log(July)
+
 	</script>
 </html>

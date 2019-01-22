@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="component"></div>
+	</body>
+	<script type="text/babel">
+		
+		function MyComponent1(props){
+			return <h1>哈哈哈哈</h1>
+		}
+		function MyComponent2(props){
+			return <h1>哈哈哈哈哈哈</h1>
+		}
+		class MyComponent extends React.Component{
+			constructor(props){
+				super(props);
+				this.state={
+					isLoggedin:true
+				}
+				this.handleClickOn=this.handleClickOn.bind(this);
+				this.handleClickDown=this.handleClickDown.bind(this);
+			}
+			handleClickOn(){
+				console.log(this.state.isLoggedin)
+				this.setState({isLoggedin:true})
+			}
+			handleClickDown(){
+				console.log(this.state.isLoggedin)
+				this.setState({isLoggedin:false})
+			}
+			render(){
+				
+				if(this.state.isLoggedin){
+					return <MyComponent1 onClick={this.handleClickDown} />
+				}
+				return <MyComponent2  onClick={this.handleClickOn} />
+			}
+		}
+		ReactDOM.render(<MyComponent />,document.getElementById('component') );
+
+		
+	</script>
+</html>

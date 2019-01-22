@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/babel.min.js"></script>
+</head>
+<body>
+    <div id="clock"></div>
+</body>
+<script type="text/babel">
+
+    class Clock extends React.Component {
+
+        constructor(props) {
+            super(props)
+            this.state = {
+                date:new Date()
+            }
+        }
+        componentDidMount() {
+            let  that = this;
+            this.timerID= setInterval(function () {
+                that.tick();
+            },1000);
+        }
+
+        componentWillUnmount() {
+            clearInterval(this.timerID);
+        }
+
+        tick() {
+            this.setState({
+                date: new Date()
+            });
+        }
+
+        render(){
+            return (
+                <div>
+                    <h1>hello</h1>
+                    <h2>this is {this.state.date.toString()}</h2>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Clock/>,document.querySelector("#clock"))
+    /*
+    因为 this.props 和 this.state 可能是异步更新的，你不应该依靠它们的值来计算下一个状态。
+    this.setState((prevState, props) => ({
+        counter: prevState.counter + props.increment
+    }));
+
+     */
+</script>
+
+</html>

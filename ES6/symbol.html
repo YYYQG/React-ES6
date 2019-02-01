@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //数据类型 undefined null boolean string number symbol object
+    let sym = Symbol("my symbol")
+    console.log(!sym)
+
+    let a={}
+    a[sym]='hello'
+    let b ={
+        [sym]:'hello',
+        [sym](){
+    }
+    }
+    let c={}
+    Object.defineProperty(c,sym,{value:'hello'})
+    console.log("内置symbol值")
+    //Symbol.hasInstance
+    class my {
+         [Symbol.hasInstance](x){
+            return x instanceof Array
+        }
+    }
+    console.log([1,2,3] instanceof new my())
+    console.log(my[Symbol.hasInstance])
+    console.log(new my()[Symbol.hasInstance])
+
+
+
+
+    //Symbol.isConcatSpreadable 默认为undefined
+    let arr = [1,2]
+    console.log([2,3].concat(arr,10))
+    console.log(arr[Symbol.isConcatSpreadable])
+
+    let arr2 = [1,2]
+    arr2[Symbol.isConcatSpreadable]=false
+    console.log([2,3].concat(arr2,10))
+    console.log(arr2[Symbol.isConcatSpreadable])
+
+    //Symbol.isConcatSpreadable还可以定义在类内
+    class A1 extends Array {
+        constructor(args) {
+            super(args);
+            this[Symbol.isConcatSpreadable] = true;
+        }
+    }
+    class A2 extends Array {
+        constructor(args) {
+            super(args);
+        }
+        get [Symbol.isConcatSpreadable] () {
+            return false;
+        }
+    }
+    let a1 = new A1();
+    a1[0] = 3;
+    a1[1] = 4;
+    let a2 = new A2();
+    a2[0] = 5;
+    a2[1] = 6;
+    [1, 2].concat(a1).concat(a2)
+    // [1, 2, 3, 4, [5, 6]]
+
+    //Symbol.species
+    /*class MyArray extends Array {
+    }
+
+    const a = new MyArray(1, 2, 3);
+    const b = a.map(x => x);
+    const c = a.filter(x => x > 1);
+
+    b instanceof MyArray // true
+    c instanceof MyArray // true
+
+    class MyArray extends Array {
+      static get [Symbol.species]() { return Array; }
+    }
+
+    const a = new MyArray();
+    const b = a.map(x => x);
+
+    b instanceof MyArray // false
+    b instanceof Array // true
+     */
+    //Symbol.match
+    let rex = /\./
+    console.log("rex",String.prototype.match(rex))
+    rex[Symbol.match](this)
+
+    console.log(rex.test("."))
+
+
+</script>
+</body>
+</html>

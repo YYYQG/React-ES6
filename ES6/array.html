@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    function f(v) {
+        console.log(this)
+        return v > 0
+    }
+
+    let x = [10, 12, 26, 12].findIndex(f)
+    console.log(x)
+    let b= [10,20,30,40]
+    let c = b.findIndex((value, index, obj)=>{
+        console.log(this)
+        return value>20
+    })
+    console.log(c)
+
+    let fi = ['a','b','c']
+    //value start end
+    fi.fill(7,1,2)
+    console.log("fill",fi)
+
+    let g= [,'a']
+    console.log(g.findIndex(x=>true))
+
+</script>
+
+</body>
+</html>

@@ -6,7 +6,10 @@
 </head>
 <body>
 <script>
-
+    /*
+    Promise 新建后立即执行，所以首先输出的是Promise。然后，then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行，所以resolved最后输出。
+    这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
+     */
     function multiply(input) {
         return new Promise((resolve,reject)=>{
             console.log("multiply")
@@ -29,13 +32,32 @@
     .then(add)
     .then((result)=>{
         console.log(result)
+    }).then((result)=>{
+        console.log("heihei"+result)
     })
-    
-    let x = {};
-    x={
-        name:'YYY'
-    }
-    console.log(x.name)
+
+    console.log(new Promise(function (resolve, reject) {
+        
+    }))
+    const p1 = new Promise((resolve, reject) => {
+        resolve('hello');
+    })
+        .then(result => result)
+        .catch(e => e);
+    const p2 = new Promise((resolve, reject) => {
+        throw new Error('报错了');
+    })
+        .then(result => result)
+        .catch(e => e);
+    let x = 0;
+    const p3 = Promise.resolve()
+    p3.then((result)=>{
+        x=result
+    })
+    console.log(p1)
+    console.log(p2)
+    console.log(x)
+
 </script>
 </body>
 </html>

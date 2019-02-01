@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    class Obj {
+
+        constructor(value) {
+
+            this.value = value
+            this.next = null
+
+        }
+
+        [Symbol.iterator]() {
+
+            let iterator={next:next}
+            let current=this
+
+            function next() {
+
+                if(current){
+                    var value = current.value
+                    current=current.next
+                    return {done:false,value:value}
+                }else{
+                    return {done:true}
+                }
+
+            }
+
+            return iterator
+        }
+
+
+    }
+
+
+    let one = new Obj(1)
+    let two = new Obj(2)
+    let three = new Obj(3)
+
+    one.next=two
+    two.next=three
+    for(let i of one){
+
+        console.log(i)
+
+    }
+
+    console.log("另一种方式")
+
+    let obj2 = {
+
+        data:['hello','world'],
+        [Symbol.iterator](){
+
+            let that = this
+            let index = 0
+            return(
+                {
+                    next(){
+
+                        if(index<that.data.length){
+                            return {value:that.data[index++],done:false}
+                        }else {
+                            return {value:undefined,done:true}
+                        }
+
+                    }
+                }
+            )
+
+
+        }
+    }
+
+    for (let x of obj2){
+
+        console.log(x)
+
+    }
+
+    console.log("使用现有的遍历器")
+
+    let iterable = {
+        0: 'a',
+        1: 'b',
+        2: 'c',
+        length: 3,
+        [Symbol.iterator]: Array.prototype[Symbol.iterator]
+    };
+    for (let item of iterable) {
+        console.log(item); // 'a', 'b', 'c'
+    }
+
+    console.log(iterable)
+
+    console.log("字符串的遍历器")
+    let s = "abc"
+
+    s[Symbol.iterator]=()=>{
+
+        return {
+
+            next(){
+                console.log(this._first)
+                if (this._first) {
+                    this._first = false;
+                    return { value: "bye", done: false };
+                } else {
+                    return { done: true };
+                }
+            },
+            _first: true
+        }
+
+    }
+    //js forEach无法使用break或return命令跳出循环
+
+</script>
+</html>

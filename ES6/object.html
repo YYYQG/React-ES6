@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    let prop = 'foo'
+
+    let obk = {
+
+        [prop]:true
+    }
+    console.log(obk.foo)
+
+    const foo ='bar'
+    const bar ='abc'
+    //错误
+    //const  baz ={[foo]}
+    const  baz = {[foo]:[bar]}
+    console.log("方法的name属性")
+    const obj = {
+        get foo(){},
+        set foo(x){},
+
+    }
+    //错误
+    //obj.foo.name
+    const  foo1 = Object.getOwnPropertyDescriptor(obj,'foo')
+    console.log(foo1.get.name)
+    console.log(foo1.set.name)
+    console.log(obj)
+
+    //(new Function()).name // "anonymous"
+
+    var doSomething = function() {
+        // ...
+    };
+    doSomething.bind().name // "bound doSomething"
+
+    const sy = Symbol("yes")
+    let obj2 = {
+        sy,
+        [sy](){}
+    }
+    console.log(obj2[sy].name)
+    console.log("属性的可枚举和遍历")
+    let obj3={foo:123}
+    console.log(Object.getOwnPropertyDescriptor(obj3,'foo'))
+    /*
+
+    for...in 只遍历对象自身的和继承的可枚举的属性
+    Object.keys() 返回自身的所有可枚举的属性的键名 忽略继承属性
+    JSON.stringify() 只串行化对象自身的可枚举的属性 忽略继承属性
+    Object.assign() 忽略enumerable为false的属性 忽略继承属性
+
+     */
+
+    Object.getOwnPropertyDescriptor(class {foo() {}}.prototype, 'foo').enumerable
+    console.log(class {foo() {}}.prototype)
+
+    console.log("对象的解构赋值")
+    let obj5 = {
+        p: [
+            'Hello',
+            { y: 'World' }
+        ]
+    };
+
+    let { p, p: [x, { y }] } = obj5;
+    //扩展运算符的解构赋值，不能赋值继承自原型对象的属性
+    let m=[...'hello']
+    m.forEach((value, index, array)=>{
+        console.log(value)
+    })
+    console.log("对象新增方法")
+    let t1 = {
+        name:'yyy'
+    }
+    let t2 = {
+        age:20
+    }
+    let t3 = Object.create(t1,Object.getOwnPropertyDescriptors(t2))
+    console.log("create",t3)
+    console.log("getOwnPropertyDescriptors",Object.getOwnPropertyDescriptors(t2))
+    const source ={
+        set foo(value){
+        }
+    }
+    //处理assign无法正确拷贝set get
+    const target = {}
+    Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))
+    console.log("define",target)
+    //利用create 和  getOwnPropertyDescriptors拷贝对象
+    let parent = {
+        fa:"Y"
+    }
+    let source2 = {
+        name:'yyy',
+        age:20
+    }
+    Object.setPrototypeOf(source2,parent)
+    console.log(Object.create(Object.getPrototypeOf(source2),Object.getOwnPropertyDescriptors(source2)))
+    console.log("getOwnPropertyDescriptors实现继承",Object.create(source2,Object.getOwnPropertyDescriptors({foo:123})))
+    /*
+    Object.setPrototypeOf()（写操作）、Object.getPrototypeOf()（读操作）、Object.create()（生成操作）代替。
+     */
+</script>
+</body>
+</html>

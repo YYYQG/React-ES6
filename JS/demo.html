@@ -49,5 +49,22 @@
 
         }
         console.log(new f())
+		console.log('--------------------')
+
+        // setTimeout
+        setTimeout(() => {
+            console.log("setTimeout");//下一轮
+        });
+        // promise
+        Promise.resolve().then(() => {
+            console.log("promise");
+        });
+
+        new Promise((resolve, reject) => {
+            resolve(1);
+            console.log(2);
+        }).then(r => {
+            console.log(r);
+        });
 	</script>
 </html>

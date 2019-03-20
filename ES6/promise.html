@@ -52,7 +52,9 @@
     let x = 0;
     const p3 = Promise.resolve()
     p3.then((result)=>{
-        x=result
+        return 'h'
+    }).then(result=>{
+        console.log(result)
     })
     console.log(p1)
     console.log(p2)

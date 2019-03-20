@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    class MyClass {
+        constructor() {
+            // ...
+        }
+        get prop() {
+            return 'getter';
+        }
+        set prop(value) {
+            console.log('setter: '+value);
+        }
+    }
+    let inst = new MyClass();
+
+    inst.prop = 123;
+    // setter: 123
+
+    console.log(inst.prop)
+    // 'getter'
+    console.log(inst)
+    var obj = {
+        get foo() {
+            return Math.random();
+        },
+        set foo(value) {
+            console.log('SET foo = '+value);
+        },
+    };
+
+    function Number(num) {
+        this._num = num           //这里的_num和get/set方法num()不能重名
+    }
+
+    //get/set方法使用同一个命名，增加可读性
+    Number.prototype = {
+        get num() {
+            return this._num;
+        },
+
+        set num(num) {
+            this._num = num;
+        },
+        name() {
+
+        },
+        age:function () {
+            
+        }
+    }
+
+    var test = new Number(8);
+    console.log(test.num);
+    test.num = 88;
+    console.log(test.num);
+    console.log('立即执行Class')
+
+    let person = new class{
+        constructor(name){
+            this.name = name;
+        }
+        sayName(){
+            console.log(this.name)
+        }
+    }('张三')
+    person.sayName()
+</script>
+</html>

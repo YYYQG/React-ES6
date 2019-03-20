@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id = "show-hash-result" style="color:blue"></div>
+    <div>
+        <ul>
+            <li><a href="#/index.html">首页</a></li>
+            <li><a href="#/server">服务</a></li>
+            <li><a href="#/mine">我的</a></li>
+        </ul>
+    </div>
+    <div id="result"></div>
+</body>
+<script>
+    window.addEventListener("hashchange", function(){
+        //变化后输出当前地址栏中的值
+        document.getElementById("show-hash-result").innerHTML = location.hash;
+
+        console.log(window.location.hash) ;
+    });
+
+    class myRoute{
+
+        constructor(){
+            this.routes={}
+            this.curUrl=''
+        }
+
+        route(path,callback=()=>{}){
+            this.routes[path]=callback
+        }
+
+        refresh(){
+            console.log(location.hash)
+            this.curUrl=location.hash.slice(1)||'/'
+            if(this.curUrl.indexOf('/')!=-1){ //这里粗略的把 hash 过滤掉
+                this.routes[this.curUrl]();
+            }
+        }
+
+        init(){
+            window.addEventListener('load', ()=>{this.refresh()}, false);
+            window.addEventListener('hashchange', ()=>{this.refresh()}, false);
+        }
+
+    }
+
+    let r=new myRoute()
+    r.init()
+    let res = document.getElementById('result')
+    r.route('/index.html', function() {
+        res.style.height='150px';
+        res.style.width='300px';
+        res.style.background = 'green';
+        res.innerHTML = '<html>我是首页</html>';
+
+    });
+    r.route('/server', function() {
+        res.style.height='150px';
+        res.style.width='300px';
+        res.style.background = 'orange';
+        res.innerHTML = '我是服务页面';
+    });
+    r.route('/mine', function() {
+        res.style.background = 'red';
+        res.style.height='150px';
+        res.style.width='300px';
+        res.innerHTML = '我的界面';
+    });
+    console.log(r)
+</script>
+</html>

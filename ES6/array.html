@@ -29,6 +29,41 @@
     let g= [,'a']
     console.log(g.findIndex(x=>true))
 
+    let s = new String('xyz')
+    let {length} = s
+    console.log(length)
+    console.log({...s})
+    console.log(Object.getOwnPropertyDescriptors(s))
+    let ob = Object.create({},{name:{
+            configurable: false,
+            enumerable: false,
+            value: 3,
+            writable: false
+        }})
+    console.log({...ob})
+    let {name}=ob
+    console.log(name)
+
+    console.log('test')
+    const p1 = new Promise(function (resolve, reject) {
+        setTimeout(() => reject(new Error('fail')), 3000)
+    })
+
+    const p2 = new Promise(function (resolve, reject) {
+        setTimeout(() => resolve(p1), 3000)
+    })
+
+    console.log('p2',p2)
+    console.log('p1',p1)
+    let proxy = new Proxy(p2, {
+        get: function(target, property) {
+            console.log(property)
+            return target[property];
+        }
+    });
+    proxy
+        .then(result => console.log(result))
+        .catch(error => console.log(error))
 </script>
 
 </body>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    console.log(/^.$/su.test('\uD83D\uDC2A'))//true
+    console.log(/^.$/s.test('\uD83D\uDC2A'))//false
+    console.log(/^.$/u.test('\uD83D\uDC2A'))//true
+
+    function f({x,y=0}) {
+        console.log(x,y)
+    }
+
+    f({})
+
+    function f1(x) {
+        console.log(x)
+    }
+    f1()
+
+</script>
+</html>
